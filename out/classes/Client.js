@@ -16,6 +16,7 @@ exports.CoreClient = void 0;
 const consola_1 = __importDefault(require("consola"));
 const discord_js_1 = require("discord.js");
 const glob_1 = __importDefault(require("glob"));
+const Util_1 = __importDefault(require("./Util"));
 const logger = consola_1.default;
 process.on("unhandledRejection", err => {
     return logger.error(err);
@@ -31,6 +32,7 @@ class CoreClient extends discord_js_1.Client {
         this.logger = consola_1.default;
         this.commands = new discord_js_1.Collection();
         this.PrivateOptions = options;
+        this.util = new Util_1.default(this.PrivateOptions.UtilConfig);
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {

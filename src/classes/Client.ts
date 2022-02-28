@@ -1,7 +1,8 @@
 import consola, { Consola } from "consola";
-import { Client, Collection, IntentsString as Intents, TextChannel } from "discord.js";
+import { Client, Collection, EmbedFooterData, IntentsString as Intents, TextChannel } from "discord.js";
 import glob from "glob";
 import { Command, Event } from "./Types";
+import Util from "./Util";
 
 type ClientOptions = {
     token: string;
@@ -9,6 +10,12 @@ type ClientOptions = {
     intents: Intents[];
     eventPath: string;
     commandPath: string;
+    UtilConfig: {
+        successColor: number | null;
+        errorColor: number | null;
+        primaryColor: number | null;
+        footer: EmbedFooterData;
+    }
 }
 
 const logger = consola;
@@ -24,6 +31,7 @@ export class CoreClient extends Client {
     private PrivateOptions: ClientOptions;
 
     public logger: Consola = consola;
+    public util: Util;
     public commands: Collection<string, Command> = new Collection();
 
     constructor(options: ClientOptions) {
@@ -31,6 +39,7 @@ export class CoreClient extends Client {
             intents: options.intents
         });
         this.PrivateOptions = options;
+        this.util = new Util(this.PrivateOptions.UtilConfig)
     }
 
     public async start(): Promise<void> {
