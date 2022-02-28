@@ -9,9 +9,9 @@ declare type ClientOptions = {
     eventPath: string;
     commandPath: string;
     UtilConfig: {
-        successColor: number | null;
-        errorColor: number | null;
-        primaryColor: number | null;
+        successColor: any;
+        errorColor: any;
+        primaryColor: any;
         footer: EmbedFooterData;
     };
 };

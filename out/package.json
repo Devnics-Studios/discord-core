@@ -1,6 +1,6 @@
 {
   "name": "discord-core",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Discord bot template for Devnics & Ivan.",
   "main": "index.js",
   "scripts": {

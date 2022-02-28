@@ -38,9 +38,8 @@ class CoreClient extends discord_js_1.Client {
         return __awaiter(this, void 0, void 0, function* () {
             const eventFiles = glob_1.default.sync(this.PrivateOptions.eventPath + "/**/*{.ts,.js}");
             eventFiles.map(value => {
-                var _a;
-                const file = require(value);
-                const event = (_a = new file()) !== null && _a !== void 0 ? _a : new file().default;
+                const file = require(value).default;
+                const event = new file();
                 if (event) {
                     this.on(event.name, event.run.bind(null, this));
                 }
@@ -64,9 +63,8 @@ class CoreClient extends discord_js_1.Client {
             });
             const commandFiles = glob_1.default.sync(this.PrivateOptions.commandPath + "/**/*{.ts,.js}");
             commandFiles.map(value => {
-                var _a;
-                const file = require(value);
-                const command = (_a = new file()) !== null && _a !== void 0 ? _a : new file().default;
+                const file = require(value).default;
+                const command = new file();
                 if (command) {
                     this.commands.set(command.name, command);
                 }

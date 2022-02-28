@@ -11,9 +11,9 @@ type ClientOptions = {
     eventPath: string;
     commandPath: string;
     UtilConfig: {
-        successColor: number | null;
-        errorColor: number | null;
-        primaryColor: number | null;
+        successColor: any;
+        errorColor: any;
+        primaryColor: any;
         footer: EmbedFooterData;
     }
 }
@@ -45,8 +45,8 @@ export class CoreClient extends Client {
     public async start(): Promise<void> {
         const eventFiles = glob.sync(this.PrivateOptions.eventPath + "/**/*{.ts,.js}");
         eventFiles.map(value => {
-            const file = require(value);
-            const event: Event = new file() ?? new file().default;
+            const file = require(value).default;
+            const event: Event = new file();
             if (event) {
                 this.on(event.name, event.run.bind(null, this))
             }
@@ -70,8 +70,8 @@ export class CoreClient extends Client {
 
         const commandFiles = glob.sync(this.PrivateOptions.commandPath + "/**/*{.ts,.js}");
         commandFiles.map(value => {
-            const file = require(value);
-            const command: Command = new file() ?? new file().default;
+            const file = require(value).default;
+            const command: Command = new file();
             if (command) {
                 this.commands.set(command.name, command)
             }
