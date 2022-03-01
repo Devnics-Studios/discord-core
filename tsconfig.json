@@ -1,17 +1,12 @@
 {
     "compilerOptions": {
-        "sourceMap": true,
-        "target": "ES6",
-        "module": "CommonJS",
-        "rootDir": "./src",
-        "outDir": "./out",
-        "strict": true,
+        "module": "commonjs",
         "esModuleInterop": true,
-        "skipLibCheck": true,
-        "declaration": true,
-        "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true,
-        "lib": ["ESNext"]
+        "target": "ESNext",
+        "declaration": true
     },
-    "exclude": ["node_modules", "out", "core-test"]
+    "exclude": [
+        "node_modules"
+    ],
+    "include": ["**/*.ts"]
 }

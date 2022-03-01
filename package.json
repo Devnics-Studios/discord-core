@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "@types/glob": "^7.2.0",
+    "consola": "^2.15.3",
+    "discord.js": "^13.6.0",
+    "glob": "^7.2.0"
+  },
+  "name": "discord-core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TehIvan/discord-core.git"
+  },
+  "author": "Ivan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TehIvan/discord-core/issues"
+  },
+  "homepage": "https://github.com/TehIvan/discord-core#readme",
+  "description": ""
+}
