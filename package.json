@@ -5,9 +5,9 @@
     "discord.js": "^13.6.0",
     "glob": "^7.2.0"
   },
-  "name": "discord-core",
+  "name": "core-discord",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

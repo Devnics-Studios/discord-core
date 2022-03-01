@@ -3,7 +3,7 @@
 ### TS-Use only.
 ## Initialising Client & Start
 ```
-import { Client } from "discord-core";
+import { Client } from "core-discord";
 
 const client = new Client({
     token: "YOUR_TOKEN",
@@ -22,7 +22,7 @@ client.start();
 ## Registering Events
 #### Create a new file under the events path
 ```
-import { Client, Event } from "discord-core"
+import { Client, Event } from "core-discord"
 
 export default class Ready extends Event {
     constructor() {
@@ -39,8 +39,7 @@ export default class Ready extends Event {
 #### Create a new file under the commands path
 ```
 import { TextChannel, GuildMember, Message } from "discord.js";
-import Client from "../Client";
-import Command from "../Command";
+import { Client, Command } from "core-discord";
 
 export default class Ping extends Command {
     constructor() {
