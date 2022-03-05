@@ -13,7 +13,9 @@ const client = new Client({
     paths: {
         commands: "./commands",
         events: "./events"
-    }
+    },
+    color: "RED",
+    footer: {text: "", iconURL?: ""}
 });
 
 client.start();
