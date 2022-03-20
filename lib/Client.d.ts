@@ -2,6 +2,7 @@ import Discord, { Collection, EmbedFooterData } from "discord.js";
 import { Consola } from "consola";
 import Command from "./Command";
 import Util from "./Util";
+import SlashCommand from "./SlashCommand";
 declare type ClientOptions = {
     token: string;
     prefix: string;
@@ -11,12 +12,14 @@ declare type ClientOptions = {
         commands: string;
         events: string;
     };
+    slash: boolean;
+    slash_guilds: [];
     color: string;
     footer: EmbedFooterData;
 };
 export default class Client extends Discord.Client {
     logger: Consola;
-    commands: Collection<string, Command>;
+    commands: Collection<string, Command | SlashCommand>;
     util: Util;
     private opt;
     constructor(options: ClientOptions);
