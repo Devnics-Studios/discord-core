@@ -1,4 +1,4 @@
-import { ApplicationCommandData, ApplicationCommandOptionData, GuildMember, Message, TextChannel } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionData, CommandInteraction, GuildMember, Message, TextChannel } from "discord.js";
 import { Client } from "..";
 
 export default abstract class Command {
@@ -28,5 +28,5 @@ export default abstract class Command {
         }
     }
 
-    public abstract run(client: Client, channel: TextChannel, member: GuildMember, message: Message, args: string[]): Promise<void>;
+    abstract run(client: Client, channel: TextChannel, member: GuildMember, interaction: CommandInteraction): Promise<void> | void;
 }

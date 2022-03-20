@@ -1,4 +1,4 @@
-import Discord, { Collection, EmbedFooterData } from "discord.js";
+import Discord, { Collection, EmbedFooterData, GuildMember } from "discord.js";
 import consola, { Consola } from "consola";
 import { loadEvents, loadCommands } from "./Load";
 import Command from "./Command";
@@ -7,7 +7,7 @@ import SlashCommand from "./SlashCommand";
 
 type ClientOptions = {
     token: string;
-    prefix: string;
+    prefix?: string;
     intents: Discord.IntentsString[];
     partials?: Discord.PartialTypes[];
     paths: {
@@ -15,7 +15,7 @@ type ClientOptions = {
         events: string;
     },
     slash: boolean;
-    slash_guilds: [];
+    slash_guilds?: string[];
     color: string,
     footer: EmbedFooterData
 }
@@ -49,10 +49,17 @@ export default class Client extends Discord.Client {
                 const name = command.shift()?.toLowerCase() ?? '';
                 const cmd = this.commands.get(name);
                 if (cmd.permissions.length > 0 && !message.member.roles.cache.some(r => cmd.permissions.includes(r.id))) return;
-                if (cmd && cmd.guilds.includes(message.guild.id)) {
+                if (cmd && cmd.guilds.includes(message.guild.id) && cmd instanceof Command) {
                     cmd.run(this, message.channel as Discord.TextChannel, message.member, message, command);
                 }
             }
+        });
+        this.on('interactionCreate', interaction => {
+            if (!interaction.isCommand()) return;
+            const command = this.commands.get(interaction.commandName) as SlashCommand;
+            if (!command) return;
+            if (command.permissions.length > 0 && !(interaction.member as GuildMember).roles.cache.some(r => command.permissions.includes(r.id))) return;
+            command.run(this, interaction.channel as Discord.TextChannel, interaction.member as GuildMember, interaction);
         });
         this.on("ready", () => {
             if (!this.opt.slash) return;

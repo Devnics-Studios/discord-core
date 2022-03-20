@@ -9,5 +9,5 @@ export default abstract class Command {
     guilds: string[];
     permissions: string[];
     protected constructor(category: string, name: string, description: string, usage: string, guilds: string[], permissions: string[], enabled?: boolean);
-    abstract run(client: Client, channel: TextChannel, member: GuildMember, message: Message, args: string[]): Promise<void>;
+    abstract run(client: Client, channel: TextChannel, member: GuildMember, message: Message, args: string[]): Promise<void> | void;
 }

@@ -1,4 +1,4 @@
-import { ApplicationCommandData, ApplicationCommandOptionData, GuildMember, Message, TextChannel } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionData, CommandInteraction, GuildMember, TextChannel } from "discord.js";
 import { Client } from "..";
 export default abstract class Command {
     category: string;
@@ -10,5 +10,5 @@ export default abstract class Command {
     permissions: string[];
     raw: ApplicationCommandData;
     protected constructor(category: string, name: string, description: string, options: ApplicationCommandOptionData[], guilds: string[], permissions: string[]);
-    abstract run(client: Client, channel: TextChannel, member: GuildMember, message: Message, args: string[]): Promise<void>;
+    abstract run(client: Client, channel: TextChannel, member: GuildMember, interaction: CommandInteraction): Promise<void> | void;
 }

@@ -5,7 +5,7 @@ import Util from "./Util";
 import SlashCommand from "./SlashCommand";
 declare type ClientOptions = {
     token: string;
-    prefix: string;
+    prefix?: string;
     intents: Discord.IntentsString[];
     partials?: Discord.PartialTypes[];
     paths: {
@@ -13,7 +13,7 @@ declare type ClientOptions = {
         events: string;
     };
     slash: boolean;
-    slash_guilds: [];
+    slash_guilds?: string[];
     color: string;
     footer: EmbedFooterData;
 };

@@ -21,5 +21,5 @@ export default abstract class Command {
         this.category = category;
     }
 
-    public abstract run(client: Client, channel: TextChannel, member: GuildMember, message: Message, args: string[]): Promise<void>;
+    abstract run(client: Client, channel: TextChannel, member: GuildMember, message: Message, args: string[]): Promise<void> | void;
 }
