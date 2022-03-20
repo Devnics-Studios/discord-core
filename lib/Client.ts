@@ -54,13 +54,6 @@ export default class Client extends Discord.Client {
                 }
             }
         });
-        this.on('interactionCreate', interaction => {
-            if (!interaction.isCommand()) return;
-            const command = this.commands.get(interaction.commandName) as SlashCommand;
-            if (!command) return;
-            if (command.permissions.length > 0 && !(interaction.member as GuildMember).roles.cache.some(r => command.permissions.includes(r.id))) return;
-            command.run(this, interaction.channel as Discord.TextChannel, interaction.member as GuildMember, interaction);
-        });
         this.on("ready", () => {
             if (!this.opt.slash) return;
             for (const guildId of this.opt.slash_guilds) {
