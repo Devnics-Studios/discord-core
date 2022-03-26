@@ -3,7 +3,6 @@ import consola, { Consola } from "consola";
 import { loadEvents, loadCommands } from "./Load";
 import Command from "./Command";
 import Util from "./Util";
-import SlashCommand from "./SlashCommand";
 
 type ClientOptions = {
     token: string;
@@ -14,8 +13,6 @@ type ClientOptions = {
         commands: string;
         events: string;
     },
-    slash: boolean;
-    slash_guilds?: string[];
     color: string,
     footer: EmbedFooterData
 }
@@ -23,7 +20,7 @@ type ClientOptions = {
 export default class Client extends Discord.Client {
 
     public logger: Consola = consola;
-    public commands: Collection<string, Command | SlashCommand> = new Collection();
+    public commands: Collection<string, Command> = new Collection();
     public util: Util;
 
     private opt: ClientOptions;
@@ -39,7 +36,7 @@ export default class Client extends Discord.Client {
 
     async start() {
         await loadEvents(this, this.opt.paths.events);
-        await loadCommands(this, this.opt.paths.commands, this.opt.slash);
+        await loadCommands(this, this.opt.paths.commands);
         await console.log();
         this.on('messageCreate', message => {
             if (message.author.bot) return;
@@ -54,19 +51,6 @@ export default class Client extends Discord.Client {
                 }
             }
         });
-        this.on("ready", () => {
-            if (!this.opt.slash) return;
-            for (const guildId of this.opt.slash_guilds) {
-                const guild = this.guilds.cache.get(guildId);
-                if (!guild) continue;
-                var commands = [];
-                for (const command of this.commands.toJSON().filter(r => r.guilds.includes(guild.id))) {
-                    if(!(command instanceof SlashCommand)) continue;
-                    commands.push(command.raw);
-                }
-                guild.commands.set(commands);
-            }
-        })
         this.login(this.opt.token).catch(err => {
             this.logger.error(err.message);
             process.exit();
